@@ -3,6 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 import { Button, Textarea, Form, Item, Input, Label } from 'native-base';
 import { Layout } from '../Components/Layout';
 import { NoteContext } from '../Contexts/NoteContext';
+import { NoteForm } from '../Components/NoteForm';
 
 const styles = StyleSheet.create({
     container: {
@@ -19,13 +20,6 @@ export const AddNoteScreen = props => {
         props.navigation.navigate('Home')
     }
 
-    const onChange = (value, name) => {
-        setNewNote({
-            ...newNote,
-            [name]: value
-        })
-    }
-
     return (
     <Layout
         title="Add Note"
@@ -40,21 +34,7 @@ export const AddNoteScreen = props => {
             </Fragment>
         }
     >
-        <Form style={styles.container}>
-            <Item>
-                <Label>Title:</Label>
-                <Input
-                    value={newNote.title}
-                    onChangeText={(title) => { onChange(title, 'title') }}
-                />
-            </Item>
-            <Textarea
-                style={styles.container}
-                value={newNote.content}
-                onChangeText={(title) => { onChange(title, 'content') }}    
-                placeholder='New note'              
-            />
-        </Form>
+        <NoteForm note={newNote} setNote={setNewNote} />
     </Layout>
     );
 }
