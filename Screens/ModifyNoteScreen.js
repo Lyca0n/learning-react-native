@@ -32,14 +32,17 @@ export const ModifyNoteScreen = props => {
         }
     },[contextNotes, props.navigation.state.params.id])
 
-    const updateNote = () =>{
-        updateContextNote(note, props.navigation.state.params.id)
+    const goHome= ()=>{
         props.navigation.navigate('Home');
+    }
+    const updateNote = () =>{
+        updateContextNote(note, props.navigation.state.params.id)        
+        goHome();
     }
 
     const deleteNote = () =>{
         deleteContextNote(props.navigation.state.params.id);
-        props.navigation.navigate('Home');
+        goHome();
     }
     return(
     <Layout
@@ -47,14 +50,19 @@ export const ModifyNoteScreen = props => {
         footer={
             <Fragment>
                 <Button 
+                full
+                onPress={deleteNote}>
+                    <Text>Delete Note</Text>
+                </Button>
+                <Button 
                 full 
                 onPress={updateNote}>
                     <Text>Update Note</Text>
                 </Button>
                 <Button 
-                full
-                onPress={deleteNote}>
-                    <Text>Delete Note</Text>
+                full 
+                onPress={goHome}>
+                    <Text>Cancel</Text>
                 </Button>
             </Fragment>
         }
