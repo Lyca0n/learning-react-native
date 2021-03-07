@@ -9,21 +9,20 @@ import { NoteContent } from '../Components/NoteContent';
 export const HomeScreen = props => {
     const prevProps = useRef(false);
     const { getContextNotes } = useContext(NoteContext);
-    const [notes, setNotes] = useState([{title:"hi",content:'sup',id:"2"}]);
+    const [notes, setNotes] = useState();
 
     useEffect(() => {
-        const setData = () => {
+        const setData = async () => {
             if (prevProps.isFocused !== props.isFocused) {
-                const getNotes = getContextNotes();
-                //setNotes(getNotes)
+                const getNotes = await getContextNotes();
+                setNotes(getNotes)
             }
         }
         setData();
-    }, [getContextNotes, props.isFocused])
-    console.log("from home",notes)
+    }, [getContextNotes, props.isFocused])    
     return (
         <Layout title="My Notes" footer={
-            <Button full onPress={() => props.navigation.navigate('AddNoteScreen')}>
+            <Button full onPress={() => props.navigation.navigate('AddNote')}>
                 <Text>Add Note</Text>
             </Button>
         }>

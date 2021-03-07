@@ -20,12 +20,11 @@ export class NoteProvider extends Component{
 
         this.getContextNotes = async ()=> {
             try{                
-                const fetchedNotes = await AsyncStorage.getItem('@notes');                   
-                console.log("from storage fetch", fetchedNotes)                                            
+                const fetchedNotes = await AsyncStorage.getItem('@notes');                                   
                 if(fetchedNotes){
-                    this.setState({contextNotes: fetchedNotes})
-                }
-                console.log("from context", this.state.contextNotes)
+                    const notes = JSON.parse(fetchedNotes)                 
+                    this.setState({contextNotes: notes})
+                }                
                 return this.state.contextNotes
             }catch(e){
                 errorHandler(e)
